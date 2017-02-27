@@ -1,266 +1,279 @@
-	
-	//COlocar numeros en la pantalla
-	var teclaCero=document.getElementById("0");
-
-	teclaCero.addEventListener('click', Cero);
-
-	function Cero(argument){
-		document.getElementById("display").innerHTML+=0;
-		
-	}		
-
-
-	var teclaUno=document.getElementById("1");
-
-	teclaUno.addEventListener('click', Uno);
-
-	function Uno(argument){
-		document.getElementById("display").innerHTML+=1;
+var Calculadora = function(){
+	//Declaracion del objeto y de variables de control
+	var _api = {};
+	var n1 = null;
+	var n2 = null;
+	var op = null;
+	var totalizar = null;
+	var enc = 0;
+ 
+ //funcion para inicializar las teclas y asignar listeners
+	function init(){
+		document.getElementById('mas').addEventListener('click', _api.sumar);
+		document.getElementById('menos').addEventListener('click', _api.restar);
+		document.getElementById('por').addEventListener('click', _api.multiplicar);
+		document.getElementById('dividido').addEventListener('click', _api.dividir);
+		document.getElementById('punto').addEventListener('click', _api.punto);
+		document.getElementById('igual').addEventListener('click', _api.total);
+		document.getElementById('on').addEventListener('click', _api.limpiar);
+		document.getElementById('0').addEventListener('click', _api.adNumero);
+		document.getElementById('1').addEventListener('click', _api.adNumero);
+		document.getElementById('2').addEventListener('click', _api.adNumero);
+		document.getElementById('3').addEventListener('click', _api.adNumero);
+		document.getElementById('4').addEventListener('click', _api.adNumero);
+		document.getElementById('5').addEventListener('click', _api.adNumero);
+		document.getElementById('6').addEventListener('click', _api.adNumero);
+		document.getElementById('7').addEventListener('click', _api.adNumero);
+		document.getElementById('8').addEventListener('click', _api.adNumero);
+		document.getElementById('9').addEventListener('click', _api.adNumero);
+		document.getElementById('sign').addEventListener('click', _api.signo);
 	}
 
+//funcion que limpia la pantalla de calculadora
+	_api.limpiar = function(){
+		estilo(document.getElementById('on'));
+		var limpia = document.getElementById('display');
+		limpia.innerHTML= '0';
+		n1 = null;
+		n2 =null;
 
-	var teclaDos=document.getElementById("2");
-
-	teclaDos.addEventListener('click', Dos);
-
-	function Dos(argument){
-		document.getElementById("display").innerHTML+=2;
-	}
-
-
-	var teclaTres=document.getElementById("3");
-
-	teclaTres.addEventListener('click', Tres);
-
-	function Tres(argument){
-		document.getElementById("display").innerHTML+=3;
 		
 	}
+ 
+ //funcion para sumar 
+	_api.sumar = function(){
+		estilo(document.getElementById('mas'));
+		if(op == null){
+			op = 1;
+			actualizardisplay(2, '');
+		}else{
+			if(n2 != null){
+				totalizar = 1;
+				actualizardisplay(n1, n2);
+				op = 1;
 
-	var teclaCuatro=document.getElementById("4");
-
-	teclaCuatro.addEventListener('click', Cuatro);
-
-	function Cuatro(argument){
-		document.getElementById("display").innerHTML+=4;
-		
-	}				
-
-
-	var teclaCinco=document.getElementById("5");
-
-	teclaCinco.addEventListener('click', Cinco);
-
-	function Cinco(argument){
-		document.getElementById("display").innerHTML+=5;
-		
-	}		
-
-	var teclaSeis=document.getElementById("6");
-
-	teclaSeis.addEventListener('click', Seis);
-
-	function Seis(argument){
-		document.getElementById("display").innerHTML+=6;
-		
-	}		
-
-
-	var teclaSiete=document.getElementById("7");
-
-	teclaSiete.addEventListener('click', Siete);
-
-	function Siete(argument){
-		document.getElementById("display").innerHTML+=7;
-		
-	}		
-
-	var teclaOcho=document.getElementById("8");
-
-	teclaOcho.addEventListener('click', Ocho);
-
-	function Ocho(argument){
-		document.getElementById("display").innerHTML+=8;
-		
-	}		
-
-	var teclaNueve=document.getElementById("9");
-
-	teclaNueve.addEventListener('click', Nueve);
-
-	function Nueve(argument){
-		document.getElementById("display").innerHTML+=9;
-		
-	}	
-
-	var teclaOn=document.getElementById("on");
-
-	teclaOn.addEventListener('click', On);
-
-	function On(argument){
-		document.getElementById("display").innerHTML=0;
-		
-	}		
-
-
-
-
-	//Capturar operacion
-
-	var teclaMas=document.getElementById("mas");
-	
-	teclaMas.addEventListener('click', Mas);
-
-	function Mas(argument){
-		document.getElementById("display").innerHTML+= "+";
+			}else{
+				totalizar = null;
+				op= null;
+				actualizardisplay(1, n1);
+				op = 1;
+			}
+		}
 		
 	}
 
-	var teclaMenos=document.getElementById("menos");
-	
-	teclaMenos.addEventListener('click', Menos);
+// funcion para restar
+	_api.restar = function(){
+		estilo(document.getElementById('menos'));
+		if(op == null){
+			op = 2;
+			actualizardisplay(2, '');
+		}else{
+			if(n2 != null){
+				totalizar = 1;
+				actualizardisplay(n1, n2);
+				op = 2;
 
-	function Menos(argument){
-		document.getElementById("display").innerHTML+= "-";
-		
-	}	
-
-	var teclaPor=document.getElementById("por");
-	
-	teclaPor.addEventListener('click', Por);
-
-	function Por(argument){
-		document.getElementById("display").innerHTML+= "*";
-		
-	}		
-
-	var teclaDiv=document.getElementById("dividido");
-	
-	teclaDiv.addEventListener('click', Div);
-
-	function Div(argument){
-		document.getElementById("display").innerHTML+= "/";
-		
+			}else{
+				totalizar = null;
+				op= null;
+				actualizardisplay(1, n1);
+				op = 2;
+			}
+		}
 	}
 
+//funcion para multiplicar
+	_api.multiplicar = function(){
+		estilo(document.getElementById('por'));
+		if(op == null){
+			op = 3;
+			actualizardisplay(2, '');
+		}else{
+			if(n2 != null){
+				totalizar = 1;
+				actualizardisplay(n1, n2);
+				op = 3;
 
-	//Realizar operacion
-
-	var igual= document.getElementById("igual");
-	
-	igual.addEventListener('click', operaciones);
-
-	var resultado
-
-	function operaciones(argument)
-{
-	
-	
-	if(resultado=="" || resultado=="0")
-	{
-		document.getElementById("display").innerHTML="Error";
+			}else{
+				totalizar = null;
+				op= null;
+				actualizardisplay(1, n1);
+				op = 3;
+			}
+		}
 	}
-	else{
-	resultado= eval(document.getElementById("display").value);
 
-	document.getElementById("display").innerHTML=resultado;
-}
+//funcion para dividir
+	_api.dividir = function(){
+		estilo(document.getElementById('dividido'));
+		if(op == null){
+			op = 4;
+			actualizardisplay(2, '');
+		}else{
+			if(n2 != null){
+				totalizar = 1;
+				actualizardisplay(n1, n2);
+				op = 4;
 
+			}else{
+				totalizar = null;
+				op= null;
+				actualizardisplay(1, n1);
+				op = 4;
+			}
+		}
+	}
 
-
-}
-
-	
-/*
-	
-//Tecla borrar 
-var teclaOn=document.getElementById("on");
-
-	teclaOn.addEventListener('click', On);
-
-	function On(argument){
-		document.getElementById("display").innerHTML=0;
-		
-	}	
-
-	//Asegurarse de que solo acepta numeros
-	function soloNumeros(){
-		key=e.keyCode || e.which
-		teclado=String.fromCharCode(key);
-		numeros="0123456789";
-		especiales="8-37-39-46";
-		tecla_especial=false;
-
-		for(var i in especiales){
-			if(key==especiales[i]){
-				tecla_especial=true;
+//funcion que verifica si existe un punto en la pantalla y sino lo agrega
+	_api.punto = function(){
+		estilo(document.getElementById('punto'));
+		var dp = document.getElementById('display').innerHTML.split("");
+		for(var i =0; i < dp.length; i++){
+			if(dp[i] == '.'){
+				enc = 1;
 			}
 		}
 
-		if(numeros.indexOf(teclado)==-1 && !tecla_especial){
-
-			return false;
+		if(enc == 0 && dp.length < 8){
+			actualizardisplay(3, '.');
+			enc =2;
 		}
+
+	}
+
+//funcion para cambiar de signo del numero en pantalla
+	_api.signo = function(){
+		estilo(document.getElementById('sign'));
+		var operar = document.getElementById('display');
+		operando = parseFloat(operar.innerHTML)*(-1);
+		operar.innerHTML = String(operando);
+		if(n1 != null && n2 == null){
+			n1 = String(operando);
+		}else{
+			n2 = String(operando);
+		}
+
+
+	}
+
+//funcion que totaliza con la tecla '='
+	_api.total = function(){
+		estilo(document.getElementById('igual'));
+		totalizar = 1;
+		actualizardisplay(n1, n2);
+	}
+
+//funcion que evalua las condiciones de la calculadora y agrega un numero nuevo en l pantalla
+	_api.adNumero = function(e){
+		
+		estilo(document.getElementById(e.target.id));
+		if(n1==null && op == null){
+			if(String(e.target.id) != '0'){
+				n1 = String(e.target.id);
+				actualizardisplay(1, n1);
+			}
+		}else{
+			//console.log(n1.length);	
+			if(n1.toString().length < 8 && op == null){
+				if(enc==2){
+					n1 = String(n1)+'.'+String(e.target.id);
+					actualizardisplay(1, n1);
+					enc = 0;
+				}else{
+					n1 = String(n1)+String(e.target.id);
+					actualizardisplay(1, n1);
+				}
 	
-}
+			}else{
 
-//var anterior = document.fo.valores.value;
+				if(n2==null && (op == 1 || op == 2 || op == 3 || op == 4)){
+					if(String(e.target.id) != '0'){
+						n2 = String(e.target.id);
+						actualizardisplay(1, n2);
+					}
+					
+				}else{
+					if((n2 != null && n2.toString().length < 8) && (op == 1 || op == 2 || op == 3 || op == 4)){
+						if(enc==2){
+							n2 = String(n2)+'.'+String(e.target.id);
+							actualizardisplay(1, n2);
+							enc = 0;
+						}else{
+							n2 = String(n2)+String(e.target.id);
+							actualizardisplay(1, n2);
+						}
+			}
+			
+		}
 
-function comprobar(num){ 
+			}
+			
+		}
 
-var anterior = document.getElementById("display").value;
-if(anterior=="0"){
-document.getElementById("display")="";
-}else{    
-    var anterior = document.getElementById("display").value;
-    document.getElementById("valores").value=anterior+num;
-    esto=document.getElementById("display");
+	}
+ 
+ //funcion que anima la tecla que se presiona
+	function estilo(tecla){
+		tecla.style.transform="scale(0.9)";
+		setTimeout(function() {tecla.style.transform="scale(1)";}, 200);
+	}
+ 
 
-    record=0; 
-    igual=1; 
-    var letraRecord 
-    var b=0 
-    var letra="" 
+ //funcion que opera y actualiza la pantalla con el resultado obtenido
+	function actualizardisplay(a, b){
 
-    for (a=1;a<esto.length;a++){      
-    if (esto.value=="+" || esto.value=="-" || esto.value=="*" || esto.value=="/" || esto.value=="."){ 
-    igual=igual+1; 
-    letra=esto.charAt(a);
-    }else{ 
-         if(igual>record){record=igual;letraRecord=letra} 
-            igual=1 
-         } 
-         b=a 
-    }
-    
-    if(igual>record){
-      record=igual;
-      letraRecord=letra;
-    } 
+		var pantalla = document.getElementById('display');
+		if(a ==3 && n1 == null){
+			pantalla.innerHTML= String(pantalla.innerHTML)+'.';
+			n1 = parseFloat(pantalla.innerHTML);
+			
+		}else if(a ==3 && n1 != null && n2 == null){
 
-    if (record>2){
-        var anterior = esto;
-        var nuevovalor = anterior.substring(0, anterior.length-1);
-        document.getElementById("display").value=nuevovalor;
-        record=0;b=0;igual=1;letra="";letraRecord="";
-    }     
-} 
-
-}
+			pantalla.innerHTML= String(pantalla.innerHTML)+'.';
+			n2 = parseFloat(pantalla.innerHTML);
+			
+		}else{
+			pantalla.innerHTML= String(b).substring(0, 8);
+		}
 
 
-//realizar las operacionesmatematicas
+		if(op == 1 && n2 != null && totalizar != null){
+			pantalla.innerHTML = String(parseFloat(a)+parseFloat(b)).substring(0, 8);
+			n1 = Number(a)+Number(b);
+			n2 = null;
+			totalizar = null;
+		}
+		if(op == 2 && n2 != null && totalizar != null){
+			pantalla.innerHTML = String(Number(a)-Number(b)).substring(0, 8);
+			n1 = Number(a)-Number(b);
+			n2 = null;
+			totalizar = null;
+
+		}
+		if(op == 3 && n2 != null && totalizar != null){
+			pantalla.innerHTML = String(Number(a)*Number(b)).substring(0, 8);
+			n1 = Number(a)*Number(b);
+			n2 = null;
+			totalizar = null;
+
+		}
+		if(op == 4 && n2 != null && totalizar != null){
+			pantalla.innerHTML = String(Number(a)/Number(b)).substring(0, 8);
+			n1 = Number(a)/Number(b);
+			n2 = null;
+			totalizar = null;
+
+		}
+		
+	}
+
+//inicializacion de la calculadora
+	init();
+	return _api;
+};
+
+//creacion del objeto calculadora
+var cal = new Calculadora();
 
 
-function calcular(){
-    var resultado=eval(document.getElementById("display").value);
-
-    if(resultado=="Infinity"){
-        document.getElementById("display").value="0";
-
-    }else{
-        document.getElementById("display").value=resultado;
-    }
-    
-}
-*/
